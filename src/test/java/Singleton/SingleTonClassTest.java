@@ -1,5 +1,6 @@
 package Singleton;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class SingleTonClassTest {
 
     @Test
-    void 싱글톤메소드가_같은지_확인한다(){
+    @DisplayName("단일 쓰레드 환경에서 싱글톤메소드가_같은지_확인한다")
+    void nonThreadSingleToneClass(){
         var sg = NoneThreadSingleTonClass.getSingleTonClass();
         var sg2 = NoneThreadSingleTonClass.getSingleTonClass();
 
@@ -28,6 +30,38 @@ class SingleTonClassTest {
         //멤버 변수가 동일한지 확인
         assertEquals(sg.getSu(),sg2.getSu());
     }
+
+    @Test
+    @DisplayName("멀티 쓰레드 환경에서 싱글톤메소드가 같은지 확인한다")
+    public void mulThreadTest() throws InterruptedException{
+        var sg1 = NoneThreadSingleTonClass.getSingleTonClass();
+
+
+        Runnable task =  () -> {
+            var sg2 = NoneThreadSingleTonClass.getSingleTonClass();
+
+            for (int i = 0; i < 100; i++) {
+                sg2.setSu(sg2.getSu()+1);
+                System.out.println(":: =>" + Thread.currentThread()  + sg2.getSu());
+            }
+        };
+
+        var th1 = new Thread(task);
+        th1.setName("1번입니다.");
+        var th2 = new Thread(task);
+        th2.setName("2번입니다.");
+        th1.start();
+        th2.start();
+        th1.join();
+        th2.join();
+
+
+
+        System.out.println(sg1.getSu());
+
+
+    }
+
 
 
 
