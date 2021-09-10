@@ -1,11 +1,15 @@
 package Singleton;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SingleTonClassTest {
+class NonThreadSingleTonClassTest {
 
     @Test
     @DisplayName("단일 쓰레드 환경에서 싱글톤메소드가_같은지_확인한다")
@@ -31,38 +35,37 @@ class SingleTonClassTest {
         assertEquals(sg.getSu(),sg2.getSu());
     }
 
+
+
     @Test
     @DisplayName("멀티 쓰레드 환경에서 싱글톤메소드가 같은지 확인한다")
+    @RepeatedTest(10)
     public void mulThreadTest() throws InterruptedException{
-        var sg1 = NoneThreadSingleTonClass.getSingleTonClass();
-
-
-        Runnable task =  () -> {
-            var sg2 = NoneThreadSingleTonClass.getSingleTonClass();
-
-            for (int i = 0; i < 100; i++) {
-                sg2.setSu(sg2.getSu()+1);
-                System.out.println(":: =>" + Thread.currentThread()  + sg2.getSu());
+        class TestNone extends Thread implements Runnable{
+            public NoneThreadSingleTonClass clazz = null;
+            @Override
+            public void run() {
+                clazz = NoneThreadSingleTonClass.getSingleTonClass();
             }
         };
+        List<TestNone> th = new ArrayList();
 
-        var th1 = new Thread(task);
-        th1.setName("1번입니다.");
-        var th2 = new Thread(task);
-        th2.setName("2번입니다.");
-        th1.start();
-        th2.start();
-        th1.join();
-        th2.join();
+        for (int i = 0; i < 1000; i++) {
+            th.add(new TestNone());
+        }
+        for (TestNone item : th) {
+            item.start();
+        }
 
-
-
-        System.out.println(sg1.getSu());
-
-
+        Set<String> chekcker = new HashSet<>();
+        for (TestNone item : th) {
+            item.join();
+            chekcker.add(item.clazz.toString());
+        }
+        System.out.println("SIZE : " + chekcker.size());
+        //쓰레드 세이프 하지 않는다;
+        assertEquals(chekcker.size(),1);
     }
-
-
 
 
 }
