@@ -1,4 +1,4 @@
-package Creational.factoryMethod;
+package creational.factoryMethod;
 
 class IceTea extends Coffee{
     @Override

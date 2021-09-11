@@ -1,4 +1,4 @@
-package Creational.Singleton;
+package creational.singleton;
 
 
 

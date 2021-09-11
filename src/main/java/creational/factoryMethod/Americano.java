@@ -1,4 +1,4 @@
-package Creational.factoryMethod;
+package creational.factoryMethod;
 
 public class Americano extends Coffee {
     @Override

@@ -1,4 +1,4 @@
-package Creational.factoryMethod;
+package creational.factoryMethod;
 
 public class Smoth extends Coffee{
     @Override

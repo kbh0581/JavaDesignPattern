@@ -1,4 +1,4 @@
-package Creational.factoryMethod;
+package creational.factoryMethod;
 
 public abstract class Coffee {
     public abstract String getName();
