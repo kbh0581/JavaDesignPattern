@@ -1,5 +1,5 @@
-package Singleton;
 
+package Creational.Singleton;
 
 /**
  *
@@ -37,3 +37,4 @@ public class NoneThreadSingleTonClass {
         return noneThreadSingleTonClass;
     }
 }
+
