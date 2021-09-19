@@ -61,11 +61,11 @@
     ```
   
 * 사용 메인
-```java
-    public static void main(String[]args){
-        Coffee coffe = Coffee.coffeeFactory(coffee);
-        System.out.println(coffe.getName() + "생성");
-    }
-    
-```
+  ```java
+      public static void main(String[]args){
+          Coffee coffe = Coffee.coffeeFactory(coffee);
+          System.out.println(coffe.getName() + "생성");
+      }
+      
+  ```
 
