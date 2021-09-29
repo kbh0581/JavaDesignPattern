@@ -1,8 +1,6 @@
-package strategy.DI;
+package behvioral.stragetegy.DI;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AhasCTest {
 

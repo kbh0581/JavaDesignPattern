@@ -1,4 +1,4 @@
-package strategy.DI;
+package behvioral.stragetegy.DI;
 
 public class C {
 
